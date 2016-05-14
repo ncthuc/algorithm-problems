@@ -40,9 +40,38 @@ public class MagicSquare {
     public void solve() {
         long startTime = System.currentTimeMillis();
         attemp(0,0);
+//        attempSimple(0,0);
 
         System.out.println("SOLUTIONS FOUND: " + solutionCount);
         System.out.println("Time elapsed: " + (System.currentTimeMillis() - startTime) + "ms");
+    }
+
+    private void attempSimple(int i, int j) {
+        if (i>=n || j >=n) {
+            return;
+        }
+
+        for (int k = 1; k <=n*n; k++) {
+            if (!used[k]) {
+                used[k] = true;
+                matrix[i][j] = k;
+
+                if (i>=n-1 && j >=n-1 && valid()) {
+                    solutionCount++;
+                    print();
+                }
+
+                if (j >= n-1) {
+                    attemp(i+1, 0);
+                }
+                else {
+                    attemp(i, j+1);
+                }
+
+                matrix[i][j] = 0;
+                used[k] = false;
+            }
+        }
     }
 
     private void attemp(int i, int j) {
@@ -59,7 +88,7 @@ public class MagicSquare {
 //                if (i>=n-1 && j >=n-1 && valid()) {
                 if (i>=n-1 && j >=n-1) {
                     solutionCount++;
-//                    print();
+                    print();
                 }
 
                 if (j >= n-1) {
@@ -132,7 +161,7 @@ public class MagicSquare {
             count++;
         }
 
-        if (minCol > magicSum || maxCol < magicSum || minRow > magicSum || maxRow < magicSum) return false; 
+        if (minCol > magicSum || maxCol < magicSum || minRow > magicSum || maxRow < magicSum) return false;
 
         if (i >= n-1 && (col != magicSum || diagonal2 != magicSum)) return false;
         if (j >= n-1 && row != magicSum) return false;
