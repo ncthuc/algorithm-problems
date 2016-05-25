@@ -10,7 +10,10 @@ public class CongTru1 {
     public void solve() {
         for (int v = 40; v >=1; v--) {
             String s = f(v, 0);
-            if (!s.endsWith("#")) System.out.println(v + " = " +  s.substring(3));
+            if (!s.endsWith("#")) {
+                if (s.length() <= 5) s += " + 0";
+                System.out.println(v + " = " +  s.substring(3));
+            }
         }
     }
 
